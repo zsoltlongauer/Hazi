@@ -1,0 +1,178 @@
+--------------------------------------------------------------------------------------------------------
+	Introduction to objects, Everything is an Object, Controlling program flow
+--------------------------------------------------------------------------------------------------------
+
+	Questions
+
+1.	What is an Object? What is a class?  		// An object is an instance of a class. A class is the blueprint from which we make our objects from.
+2.	Which from the following are access specifiers:
+a.	private // yes
+b.	local // no
+c.	default // no
+d.	protected // yes
+e.	public // yes
+3.	Are there some differences between Interface and Abstract Class? If yes, enumerate some of them. 
+4.	Which are the parts of a method? // definition, body
+5.	What is wrong in the following code? //same name same @param
+class Shape {
+ …
+  public int getArea() {
+    …
+  } 
+
+  public double getArea() {
+   …
+  }
+}  
+6.	What javadoc tag is used to describe the method parameters?//@param
+7.	Based on operator precedence order the following operator types: // Unary, Arithmetic, Relational, Conditional, Assignment 
+-	Arithmetic (and shift)
+-	Relational
+-	Conditional (ternary)
+-	Unary
+-	Assignment
+8.	What will be the results of the following code? // "Result:45"
+…
+int s = 0;
+for (int i = 0; i < 10; ++i) {
+   s += i; 
+} 
+System.out.println(“Result: “ + s);
+
+	Problems
+
+1.	Create a switch statement that prints a message for each case, and put the switch inside a for loop that tries each case. Put a break after each case and test it, then remove the breaks and see what happens. // if the condition is true, it will execute all cases below the current case
+2.	Write a program to transform a decimal number in a binary one. // ok
+public class Homework1
+{
+
+    public static int binary(int num)
+    {
+        int bin = 0;
+        int i =1;
+        while (num !=0)
+        {
+            bin += num%2 * i;
+            i *= 10;
+            num/= 2;
+        }
+        return  bin;
+    }
+
+    public static void main (String[] Args)
+    {
+        int num =5;
+        System.out.println(binary(num));
+    }
+
+
+}
+3.	Write a program to compute all prime numbers less than a given number.
+
+
+public class Homework1
+{
+    public static List<Integer> prime(int x)
+    {
+        boolean[] b = new boolean[3000];
+        List <Integer> numbers = new ArrayList<>();
+        for(int i=2; i < x;i++)
+        {
+            for (Integer d:numbers)
+            {
+                if (i%d == 0) b[i] = true;
+            }
+            if (!b[i])numbers.add(numbers.size(),i);
+        }
+        return numbers;
+    }
+
+
+    public static void main (String[] Args)
+    {
+        int num =300;
+        System.out.println(prime (num));
+    }
+
+}
+
+
+--------------------------------------------------------------------------------------------------------
+	Initialization & cleanup
+--------------------------------------------------------------------------------------------------------
+	Questions:
+
+1.	What is the role of the constructor? // to initialize variables
+2.	What is the meaning of the default constructor? // it is the constructor wich 
+3.	Does the java syntax support constructor overloading? // yes
+4.	How can you distinguish the overloaded methods? // @Override ?
+5.	Find and explain the errors from the following code. // 
+
+class Person {
+  private String firstName;
+  private String lastName;
+  private int age;
+ 
+  public Person() {
+    System.out.println(“Default constructor”);
+  }
+  public Person(String firstName, String lastName) {
+    System.out.println(“Other constructor”);
+    this();
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public Person(String firstName, String lastName, int age) {
+    this();
+    this(firstName, lastName);
+    this.age = age;
+  }
+
+  public void print() {
+    this();
+    System.out.println(“First Name:” + this.firstName);
+    System.out.println(“Last Name:” + this.lastName);
+    System.out.println(“Age:” + this.age);
+  } 
+
+  …
+} 
+
+6.	When are initialized the static members of a class?
+7.	What will be the result of the execution for the following code:
+public class TestOverloading {
+
+  private void print(float f) {
+    System.out.println("Float: " + f);
+  }
+
+  private void print(double d) {
+    System.out.println("Double: " + d);
+  }
+
+  private void print(int i) {
+    System.out.println("Int: " + i);
+  }
+
+  private void print(char c) {
+    System.out.println("Char: " + c);
+  }
+
+  public static void main(String[] args) {
+    float f = 0;
+    TestOverloading t = new TestOverloading();
+    t.print(f);
+    t.print((int) f);
+    t.print((char) f);
+    t.print((double) f);
+  }
+}
+
+8.	When and why should we use finalize() method?
+
+	Problems:
+
+1.	Create a class with two (overloaded) constructors and call the second constructor inside the first one.
+2.	Create a class with a static String field that is initialized at the point of definition, and another one that is initialized by the static block. Add a static method that prints both fields.
+

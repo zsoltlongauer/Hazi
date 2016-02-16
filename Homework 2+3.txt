@@ -1,0 +1,343 @@
+--------------------------------------------------------------------------------------------------
+	Reusing Classes
+--------------------------------------------------------------------------------------------------
+	Questions
+
+1.	Which are the possible ways to reuse a class?
+Composition: simply reusing the functionality of the code, not its form.
+Inheritance: taking the form of the existing class and add code to it without modifying the existing class.
+[ZP]: 10
+2.	Consider having class A, class B extends A and class C extends B. Now create an object of class C. Which is the order the constructors are called?
+First is the class A constructor, then the class B and then class C.
+[ZP]: Object->A->B->C
+0
+3.	How can you call the constructor from the base class in a derived class constructor? When can you do that?
+You can call it with super(), and it has to be the first statement in the derived class constructor.
+[ZP]: super([args...]);
+8
+4.	What would you use to build up an electronic document with text and images – composition or inheritance? 
+But to model a Word document, an Excel spreadsheet and an HTML page?
+I would use inheritance for all.
+[ZP] why?
+5
+5.	How can you make a member private for normal clients and still visible for derived classes?
+You make it protected.
+[ZP]
+10.
+6.	Can you change the value of a final object argument? For example, if a method takes a final List argument, can you call clear on it?
+No.
+[ZP] yes
+0
+
+7.	Are the methods of a final class also final?
+Yes.
+[ZP]
+10
+--------------------------------------------------------------------------------------------------
+	Polymorphism
+--------------------------------------------------------------------------------------------------
+	Questions:
+
+1.	What is the polymorphism?
+Polymorphism describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface.
+[ZP]
+10
+2.	What is binding? Classify method binding.
+Association of method definition to the method call is known as binding. There is static binding at compile time and dynamic binding at runtime.
+[ZP]
+10
+3.	Which methods can not be overridden?
+Static and final methods.
+[ZP]
+10
+4.	Which is the result of the following code? Explain the result.
+class A {
+  public void whoAmI() {
+    System.out.println(“I am class: ” + getName());
+  }
+  private String getName() {
+    return “A”;
+  }
+}
+class B extends A {
+  String getName() {
+     return “B”;
+  }
+}
+public static void main(String[] args) {
+  B b = new B();
+  b.whoAmI();
+}
+
+
+The result is: "I am class: A" because whoAmI calls the getname method from the class in which he is.
+[ZP] The explication is not correct
+6
+
+5.	Why is not recommended to call methods inside constructors? 
+Because the object is not yet initialized.
+[ZP]
+10
+6.	What is wrong in the following code:
+class A {
+  private Integer i = new Integer(0);
+  A() {
+    printValue();
+  }
+  protected printValue() {
+     System.out.println(“Default value for I is:” + i.intValue());
+  }
+}
+class B {
+   private Integer i;
+   protected printValue() {
+     System.out.println(“Default value for I in B is:” + i.intValue());
+   }
+}
+Propose solutions for correcting the above code.
+
+Because we need a returntype for printValue method like "void".
+[ZP]
+4
+
+-------------------------------------------------------------------------------------------------
+	Interfaces & Inner-Classes
+-------------------------------------------------------------------------------------------------
+
+	Questions
+
+1.	What is the difference between an Interface and an Abstract class? Explain when it is best to use Interfaces and when abstract classes.
+An abstract class’s purpose is to provide an appropriate superclass from which other classes can inherit and thus share a common design.
+An interface describes a set of methods that can be called on an object, but does not provide concrete implementations for all the methods. 
+Once a class implements an interface, all objects of that class have an is-a relationship with the interface type, 
+and all objects of the class are guaranteed to provide the functionality described by the interface.
+
+Because they’re used only as superclasses in inheritance hierarchies, we refer to them as abstract superclasses.
+These classes cannot be used to instantiate objects, because abstract classes are incomplete.
+[ZP]
+8
+2.	Write a short code snippet to define a new interface I3 that inherits two existing interfaces I1 and I2. What happens if the definitions of the I1 and I2 are:
+public interface I1 {
+  void foo();
+}
+public interface I2 {
+  public void foo();
+}
+
+
+
+public interface I3 extends I1, I2 {
+    void foo();
+}
+
+
+What about if the two interfaces are:
+public interface I1 {
+  public void foo();
+}
+public interface I2 {
+  public int foo();
+}
+
+The I2 cant have public int foo();
+[ZP] I2 can have such a method, until is not in relation with with I1.
+5
+
+3.	Point any errors in the code snippet below and explain them:
+interface Shape {
+   int getArea();
+   void draw();
+}
+
+public class Tile {
+   private int width = 0, height = 0;
+   int getArea() { return height * width;}
+   void setHeight(int height) { this.height = height; }
+   void setWidth(int width) { this.width = width; }
+}
+
+public class TileShape extends Tile implements Shape {
+   public void draw() {
+     System.out.println(“This a tile with area of: “ + this.getArea());
+   }
+   public static void main(String[] args) {
+     TileShape tileShape = new TileShape();
+     tileShape.setHeight(10);
+     tileShape.setWidth(10);
+     Shape shape = tileShape;
+     shape.draw(); 
+   }
+}
+
+The interface Shape should be public.
+[ZP] - why???
+0
+
+4.	What are the access modifiers of the fields and methods inside the interface? Is it possible to declare an interface as being static? What about private? 
+Public, default, abstract and final. Private is not used because the interface doesn't hide any implementation.
+[ZP] Can we use all modifies for fields and for methods too?? What about inner interfaces?
+0
+5.	What are the differences between inner classes and nested classes?
+Nested classes are divided into two categories: static and non-static. 
+Nested classes that are declared static are simply called static nested classes. 
+Non-static nested classes are called inner classes.
+[ZP]
+10
+
+6.	Provide a short code snippet to define an inner anonymous class:
+a.	That implements a given interface I1 with one method: void f();
+b.	That extends a given class C1
+c.	That extends a given class C2 with no default constructor and a constructor with two string parameters.
+[ZP]
+0
+7.	Which of the following are true when talking about inner classes (non-anonymous):
+a.	Can be declared inside other inner classes
+b.	Can be declared inside methods and blocks of code
+c.	Can access private members from the outer class(es)
+d.	Can have more than one constructor
+e.	Defines an IS-A relationship between the outer and the inner class
+f.	Can be further extended by other classes
+[ZP]
+0
+
+//TODO
+public class C1 {
+    
+    interface I1 { void f(); } 
+    
+    private class InnerAnon implements I1 extends C1, C2 {
+        
+        public InnerAnon{};
+        }
+    }
+
+
+8.	Given the code below, how can you access from the method f() the x member of the outer class?
+…
+public class A {
+  private int x = 10;
+  private class B {
+    private int x = 20;
+    public void f() {
+      System.out.println(x);
+    }
+  } 
+} 
+If we make the class B "private static class".
+[ZP] no
+0
+
+
+9.	Given the following interface definition:
+
+public interface I1 {
+  public interface I2 {
+     void f2();
+  }
+  public void f1();
+}
+
+Which of the following definitions are correct (and explain) ?
+1.
+public class A implements I1 {
+
+  public void f1() {};
+}
+Correct 
+
+
+2.
+public class A implements I1 {
+  public class A2 implements I2 {
+     void f2() {};
+  }
+  public void f1() {};
+}
+Correct 
+[ZP] Not Correct.
+
+3.
+public class A2 implements I2 {
+  public void f2() {}
+}
+Correct
+
+
+4.
+public class A2 implements I1.I2 {
+  void f2();
+}
+Incorrect
+
+[ZP] why???
+3
+
+10.	Given the following class, how can you create a new instance of the classes A and B in the main method():
+
+public class Test {
+   class A {
+   }
+   static class B {
+   }
+}
+class MyTest {
+   public static void main(String[] args) {
+   }
+}
+If we extend the MyTest class with Test.
+[ZP] How????????
+0
+
+-------------------------------------------------------------------------------------------------
+	Error handling with exceptions
+-------------------------------------------------------------------------------------------------
+
+	Questions:
+
+1.	What information you can print about an exception?
+The type of the exception.
+[ZP] and much more
+2
+
+2.	What is the class name of the standard Java exception that does not have to be handled?
+RuntimeException.
+[ZP]
+10
+
+3.	What is the exception restriction related to method overriding? Do constructors have the same restriction? Why?
+?
+[ZP]
+0
+
+4.	
+a.	Is the exception specification part of the method signature? Prove your answer by writing a small piece of code to justify your answer; comment your proof.
+b.	Which parts of the method declaration go in the method signature?n
+?
+0
+5.	Knowing that 
+System.out.print
+does not throw any exception, consider the following of code:
+
+  private static int getI() {
+    int i = 0;
+    try {
+      System.out.println("i is " + ++i);
+      i++;
+      try {
+        throw new Exception("Now i is " + i++);
+      }
+      catch (Throwable t) {
+        i++;
+      }
+    }
+    finally {
+      System.out.println("finally i is " + i++);
+      return i++;
+    }
+  }
+What strings are printed to the console, and what is value getI() returns?
+
+i is 1
+finally i is 4
+[ZP] and returns ?????
+6
